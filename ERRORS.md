@@ -17,3 +17,6 @@
 
 ## src/index.css
 - исправил проблему с неотображающимися прогресс барами
+
+## src/application/selectors.ts
+- исправил с `createCurrentIndexSelector` из-за которой подписчики не получали никахих значений
