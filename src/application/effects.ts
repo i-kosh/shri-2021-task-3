@@ -12,7 +12,10 @@ export function createEffects(
     state$: Observable<State>, 
 ): Observable<Action> {
     const timerEffect$ = interval(INTERVAL).pipe(
-        mapTo(actionTimer())
+        withLatestFrom(state$),
+        mergeMap(([a, s]) => {
+            return s.pause ? EMPTY : of(actionTimer())
+        }),
     );
     
     const changeSlideEffect$ = timerEffect$.pipe(
