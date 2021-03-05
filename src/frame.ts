@@ -25,13 +25,16 @@ function receiveMessage({ data }: MessageEvent<XMessage>) {
 }
 
 function onDocumentClick(e: MouseEvent) {
-    if (e.target instanceof HTMLElement) {
-        let target = e.target;
-        while(target && !target.dataset.action) {
-            target = target.parentElement;
+    if (e.target instanceof Element) {
+        let target: Element = e.target;
+        
+        // Не очень надежно, но если не профукать "?" и `target as Element` то норм
+        while(target && !(target as HTMLElement).dataset?.action) {
+            const currentTarget = target as Element
+            target = currentTarget.parentElement;
         }
 
-        if (target) {
+        if (target instanceof HTMLElement) {
             const { action, params } = target.dataset;
             sendMessage(messageAction(action, params));
         }
