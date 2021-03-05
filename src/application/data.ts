@@ -46,10 +46,11 @@ export const data = produce((draft: Draft<State>, action: Action) => {
             break;
         case 'update':
             const { alias, data } = action.data;
-
-            if (alias) {
-                draft.stories[0].alias = alias;
-            }
+            
+            // Зачем чтобы что, что? 
+            // if (alias) {
+            //     draft.stories[0].alias = alias;
+            // }
 
             if (data) {
                 Object.assign(draft.stories[draft.index].data, data);
